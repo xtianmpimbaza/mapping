@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Mapping</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="cancel_location">Cancel</string>
+
+    <string name="getting_location">Recording Location</string>
+    <string name="provider_disabled_error">Sorry, Location providers are disabled!</string>
+    <string name="location_provider_accuracy">Using %1$s. Accuracy is %2$s m.</string>
+    <string name="location_accuracy">Accuracy is %1$s m</string>
+    <string name="please_wait_long">Please wait. This could take a few minutes.</string>
+
+    <string name="text1">GPS Coordinates must only be collected outside in open source.</string>
+    <string name="text2">Do not stand under a tree, near a building, or inside a building.</string>
+    <string name="text3">Record points with accuracy below 5 metres .</string>
+
+    <string name="text4">Getting Acreage</string>
+    <string name="save_point">Save GeoPoint</string>
+
+</resources>
