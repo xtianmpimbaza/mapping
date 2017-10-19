@@ -88,7 +88,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
         <RelativeLayout
             android:id="@+id/button_home"
@@ -112,6 +112,28 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
         </RelativeLayout>
+<RelativeLayout
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/map_view_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Map view"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/button_addcart"
@@ -127,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Get Acreage"
+                android:text="Acreage"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -154,5 +176,6 @@
                 android:textColor="@color/white"
                 android:textSize="15dp" />
         </RelativeLayout>
+
     </LinearLayout>
 </RelativeLayout>

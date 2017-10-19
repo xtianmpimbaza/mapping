@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.raphael.mapping.Activities.MainActivity;
+import com.example.raphael.mapping.Activities.MapsActivity;
 import com.example.raphael.mapping.Adapter.GpsAdapter;
 import com.example.raphael.mapping.Couchdb.CouchdbGPS;
 import com.example.raphael.mapping.Globals.GlobalFunctions;
@@ -75,7 +77,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
     ArrayList<Double> longitude = new ArrayList<>();
 
 
-    public RelativeLayout addGpsLayout, getAcreageLayout, saveLayout, _RecyclerViewLayout, _EmptyRecyclerViewLayout, TOTAL;
+    public RelativeLayout addGpsLayout, getAcreageLayout, saveLayout, _RecyclerViewLayout, _EmptyRecyclerViewLayout, TOTAL, MapViewLayout;
 
 
     RecyclerView recyclerView;
@@ -114,6 +116,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
         getAcreageLayout = (RelativeLayout) view.findViewById(R.id.button_addcart);
         saveLayout = (RelativeLayout) view.findViewById(R.id.button_buy);
         TOTAL = (RelativeLayout) view.findViewById(R.id.total);
+        MapViewLayout = (RelativeLayout) view.findViewById(R.id.map_view);
 
         TOTAL_ACRES = (TextView) view.findViewById(R.id.acre);
 
@@ -135,6 +138,8 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
                 onResume();
             }
         });
+
+
         //-------------------------------------------------------------------- calc areage
         getAcreageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +151,23 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
 
                     getArea(latitude, longitude);
                     TOTAL.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //-------------------------------------------------------------------- map fragment
+        MapViewLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (longitude.size() < 2) {
+                    Toast.makeText(getActivity(), "You need atleast 3 points", Toast.LENGTH_LONG).show();
+                } else {
+                    //Toast.makeText(getActivity(), "Go to mapp", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    startActivity(intent);
+//                    getArea(latitude, longitude);
+//                    TOTAL.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -185,7 +207,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
         dialog.show();
 
         try {
-            params.put("gps_points",cordsList);
+            params.put("gps_points", cordsList);
             params.put("unique_id", " ");
             params.put("time", GlobalFunctions.getCurrentTime());
 
@@ -200,7 +222,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
                         dialog.dismiss();
                         try {
                             if (jsonObject.getInt("status") == 201 && !jsonObject.getJSONObject("result").isNull("id") && !jsonObject.getJSONObject("result").isNull("rev")) {
-                                    Toast.makeText(getActivity(), "Saved successfully", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Saved successfully", Toast.LENGTH_LONG).show();
                                 Log.e("PARAMS", params.toString());
 
                             } else {

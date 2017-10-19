@@ -1,14 +1,11 @@
 package com.example.raphael.mapping.Activities;
 
-
-
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.raphael.mapping.Fragments.GpsFragment;
 import com.example.raphael.mapping.R;
-
 
 public class MainActivity extends AppCompatActivity  {
 
