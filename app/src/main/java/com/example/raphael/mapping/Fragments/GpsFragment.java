@@ -162,8 +162,8 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
             @Override
             public void onClick(View v) {
 
-                if (longitude.size() < 2) {
-                    Toast.makeText(getActivity(), "You need atleast 3 points", Toast.LENGTH_LONG).show();
+                if (longitude.size() < 4) {
+                    Toast.makeText(getActivity(), "You need atleast 4 points", Toast.LENGTH_LONG).show();
                 } else {
                     //Toast.makeText(getActivity(), "Go to mapp", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
@@ -182,7 +182,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
             public void onClick(View v) {
 
                 if (longitude.size() < 4) {
-                    Toast.makeText(getActivity(), "A minimum of 5 points is required", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "A minimum of 4 points is required", Toast.LENGTH_LONG).show();
                 } else {
 //                    Toast.makeText(getActivity(), "Saving---------------", Toast.LENGTH_LONG).show();
                     uploadPoints();
