@@ -3,6 +3,7 @@ package com.example.raphael.mapping.Activities;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.raphael.mapping.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,12 +15,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, Serializable {
     private GoogleMap mMap;
     ArrayList<LatLng> pointsArr = null;
     PolylineOptions polylineOptions;
+    JSONObject jsonObj;
+    JSONArray jsonarray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +48,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.setPadding(0, 0, 0, 100);
 
-        //collecting co-ordinate points
-        pointsArr = new ArrayList<LatLng>();
-        pointsArr.add(new LatLng(-37.81319, 144.96298));
-        pointsArr.add(new LatLng(-31.95285, 115.85734));
-        pointsArr.add(new LatLng(-20.95285, 105.85734));
-        pointsArr.add(new LatLng(-21.95285, 117.85734));
-        pointsArr.add(new LatLng(-37.81319, 144.96298));
+        try {
+            Log.e("GPS", getIntent().getStringExtra("gps_points"));
+            jsonarray = new JSONArray(getIntent().getStringExtra("gps_points"));
+            JSONObject first_point = new JSONObject(jsonarray.getString(0));
+            pointsArr = new ArrayList<LatLng>();
+            for (int i = 0; i < jsonarray.length(); i++) {
+                JSONObject jsonOb = new JSONObject(jsonarray.getString(i));
+                pointsArr.add(new LatLng(Double.valueOf(jsonOb.get("Latitude").toString()), Double.valueOf(jsonOb.get("Longitude").toString())));
+            }
+            pointsArr.add(new LatLng(Double.valueOf(first_point.get("Latitude").toString()), Double.valueOf(first_point.get("Longitude").toString())));
+            drawPolyline(first_point);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        drawPolyline();
     }
 
-    private void drawPolyline() {
+    private void drawPolyline(JSONObject first_point) throws JSONException {
 
         mMap.addPolygon(new PolygonOptions()
                 .addAll(pointsArr)
                 .strokeColor(Color.RED)
                 .fillColor(Color.parseColor("#51000000")).strokeWidth(2));
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-37.81319, 144.96298), 4));
-
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(first_point.get("Latitude").toString()), Double.valueOf(first_point.get("Longitude").toString())), 20));
 
     }
 }

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.provider.Settings;
 import android.os.Bundle;
 
+import java.io.Serializable;
 import java.lang.Math;
 
 import static java.lang.Math.cos;
@@ -84,6 +85,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
     GpsAdapter adapter;
     CouchdbGPS couchdbGPS;
     private ProgressDialog dialog = null;
+    JSONObject jsonObj;
 
 
     @Override
@@ -165,6 +167,7 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
                 } else {
                     //Toast.makeText(getActivity(), "Go to mapp", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("gps_points", cordsList.toString());
                     startActivity(intent);
 //                    getArea(latitude, longitude);
 //                    TOTAL.setVisibility(View.VISIBLE);
@@ -188,15 +191,6 @@ public class GpsFragment extends Fragment implements com.google.android.gms.loca
                 }
             }
         });
-
-//        btnActivity1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isValid()) {
-//                    uploadImage();
-//                }
-//            }
-//        });
 
         return view;
     }

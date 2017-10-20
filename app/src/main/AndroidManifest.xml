@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.raphael.mapping">
+    package="com.example.raphael.mapping"
+    android:sharedUserId="triggers.dummy.loader">
 
     <permission
         android:name="com.androidlearningtutorials.googlemap.permission.MAPS_RECEIVE"
